@@ -1,3 +1,6 @@
+repositories:
+- name: "airbyte"
+  url: "https://contra.github.io/helm-charts/charts/airbyte/"
 releases:
 - name: "airbyte"
   namespace: "airbyte"
