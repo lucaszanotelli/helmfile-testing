@@ -1,0 +1,61 @@
+releases:
+- name: "apache-airflow"
+  namespace: "dataplatform-ns"
+  chart: "airflow/airflow"
+  version: "1.3.0"
+  wait: false
+  set:
+    - name: "postgresql.enabled"
+      value: false
+    - name: "executor"
+      value: "LocalExecutor"
+    - name: "data.metadataConnection.host"
+      value: {{ requiredEnv "rds_admin_host" }}
+    - name: "data.metadataConnection.pass"
+      value: {{ requiredEnv "rds_admin_password" }}
+    - name: "data.metadataConnection.port"
+      value: 5566
+    - name: "data.metadataConnection.user"
+      value: {{ requiredEnv "rds_admin_username" }}
+    - name: "data.metadataConnection.db"
+      value: {{ requiredEnv "rds_admin_db_name" }}
+    - name: "webserver.resources.limits.cpu"
+      value: "500m"
+    - name: "webserver.resources.limits.memory"
+      value: "2048Mi"
+    - name: "webserver.resources.requests.cpu"
+      value: "250m"
+    - name: "webserver.resources.requests.memory"
+      value: "1024Mi"
+    - name: "webserver.livenessProbe.initialDelaySeconds"
+      value: 45
+    - name: "webserver.readinessProbe.initialDelaySeconds"
+      value: 45
+    - name: "dags.gitSync.sshKeySecret"
+      value: {{ requiredEnv "airflow_gitsync_ssh_key" }}
+    - name: "dags.gitSync.enabled"
+      value: true
+    - name: "dags.gitSync.repo"
+      value: {{ requiredEnv "airflow_gitsync_repository" }}
+    - name: "dags.gitSync.branch"
+      value: {{ requiredEnv "airflow_gitsync_branch" }}
+    - name: "dags.gitSync.subPath"
+      value: {{ requiredEnv "airflow_gitsync_path" }}
+    - name: "defaultAirflowRepository"
+      value: {{ requiredEnv "airflow_image" }}
+    - name: "defaultAirflowTag"
+      value: latest
+    - name: "AIRFLOW__SMTP__SMTP_USER"
+      value: {{ requiredEnv "smtp_admin_username" }}
+    - name: "AIRFLOW__SMTP__SMTP_PASSWORD"
+      value: {{ requiredEnv "smtp_admin_password" }}
+    - name: "AIRFLOW__SMTP__SMTP_STARTTLS"
+      value: true
+    - name: "AIRFLOW__SMTP__SMTP_MAIL_FROM"
+      value: {{ requiredEnv "smtp_admin_from" }}
+    - name: "AIRFLOW__SMTP__SMTP_SSL"
+      value: false
+    - name: "AIRFLOW__SMTP__SMTP_PORT"
+      value: {{ requiredEnv "smtp_admin_port" | int }}
+    - name: "AIRFLOW__SMTP__SMTP_HOST"
+      value: {{ requiredEnv "smtp_admin_host" }}
