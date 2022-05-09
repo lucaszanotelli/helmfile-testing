@@ -1,0 +1,22 @@
+repositories:
+- name: "airbyte"
+  url: "https://contra.github.io/helm-charts/charts/airbyte/"
+releases:
+- name: "airbyte"
+  namespace: "airbyte"
+  chart: "airbyte/airbyte"
+  set:
+    - name: "webapp.image.tag"
+      value: {{ requiredEnv "airbyte_general_version" }}
+    - name: "scheduler.image.tag"
+      value: {{ requiredEnv "airbyte_general_version" }}
+    - name: "podSweeper.image.tag"
+      value: "latest"
+    - name: "server.image.tag"
+      value: {{ requiredEnv "airbyte_general_version" }}
+    - name: "worker.image.tag"
+      value: {{ requiredEnv "airbyte_general_version" }}
+    - name: "bootloader.image.tag"
+      value: {{ requiredEnv "airbyte_general_version" }}
+    - name: "temporal.image.tag"
+      value: {{ requiredEnv "airbyte_temporal_version" }}
