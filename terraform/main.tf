@@ -3,7 +3,7 @@ terraform {
       bucket = "quero2pay-terraform-states"
       key = "orchestration-stack.tfstate"
       region = "sa-east-1"
-      profile = "q2p" # default: quero2pay
+      profile = "quero2pay"
   }
 
   required_providers {
