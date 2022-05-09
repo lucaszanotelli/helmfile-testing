@@ -30,8 +30,7 @@ terraform {
 }
 
 # map parameters from variables.tf
-data aws_ssm_parameter "params" {
-  for_each = var.parameters
-  name = each.key
-  value = each.value
+data aws_ssm_parameters_by_path "foo" {
+  recursive = true
+  path = "/indicium"
 }
