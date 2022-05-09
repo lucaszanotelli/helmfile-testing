@@ -4,12 +4,12 @@ provider aws {
 }
 
 provider postgresql {
-      host = data.rds_admin_host.value
-      password = data.rds_admin_password.value
-      port = data.rds_admin_port.value
+      host = data.aws_ssm_parameter.params.rds_admin_host.value
+      password = data.aws_ssm_parameter.params.rds_admin_password.value
+      port = data.aws_ssm_parameter.params.rds_admin_port.value
       ssl_mode = disable
       superuser = true
-      username = data.rds_admin_username.value
+      username = data.aws_ssm_parameter.params.rds_admin_username.value
 }
 
 provider kubernetes {
